@@ -4,16 +4,18 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles={
-    toggleStyle:{
+const styles = {
+    toggleStyle: {
         color:'red',
-    }
+    },
+    row: {
+      'margin-left': 'auto',
+    },
 }
 
 class SwitchLabels extends React.Component {
-  state = {
-    checkedA: true,
-    checkedB: true,
+  constructor(props) {
+    super(props);
   };
 
   handleChange = name => event => {
@@ -21,13 +23,12 @@ class SwitchLabels extends React.Component {
   };
 
   render() {
-      const {classes} = this.props;
-      const lifendeath = true; //gonna be changed through database
+      const { classes, lifendeath } = this.props;
       const switched = lifendeath 
         ? <FormControlLabel disabled control={<Switch value="checkedD" />} label="non life and death" />
         :  <FormControlLabel disabled control={<Switch checked value="checkedE" />} label="life and death" />
     return (
-      <FormGroup row>
+      <FormGroup row className={classes.row}>
         {switched}
       </FormGroup>
     );

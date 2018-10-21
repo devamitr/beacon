@@ -14,10 +14,7 @@ import TitlebarGridList from './Rewards';
 const styles = theme => ({
   card: {
     width: '40%',
-    'margin-left': '30%',
-    'margin-top': '20%',
-    'margin-bottom': '30%',
-
+    margin: '10% auto',
     display: 'flex',
   },
   details: {

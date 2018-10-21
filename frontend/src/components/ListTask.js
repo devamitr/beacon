@@ -10,24 +10,50 @@ import SwitchLabels from './toggles';
 import Button from '@material-ui/core/Button';
 
 
+import getBeacons from '../api/getBeacons';
+
 const styles = theme => ({
   root: {
-    width: '100%',
+    width: '60%',
+    margin: '0 auto',
+  },
+  detail: {
+    display: 'flex',
+  },
+  detailText: {
+    margin: 'auto',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
     flexShrink: 0,
+    'align-self': 'center',
+  },
+  expansionPanel: {
+    'margin-bottom': '1rem',
+  },
+  expansionPanelSummary: {
+    display: 'flex',
+    'align-items': 'center',
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
+    'align-self': 'center',
+    'margin-right': '1rem',
+  },
+  typography: {
+    'font-size': '3rem',
+    'font-family': 'system-ui',
+    'font-weight': 300,
+    'margin-bottom': '2rem',
   },
 });
 
 class ControlledExpansionPanels extends React.Component {
   state = {
     expanded: null,
+    beaconList: [],
   };
 
   handleChange = panel => (event, expanded) => {
@@ -36,92 +62,51 @@ class ControlledExpansionPanels extends React.Component {
     });
   };
 
+  componentDidMount() {
+    getBeacons()
+      .then(res => {
+        this.setState({
+          beaconList: res,
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+  toComplete =() => this.props.history.push('./complete');
+
   render() {
     const { classes } = this.props;
     const { expanded } = this.state;
-    const  taskDes= "Fell of the stairs";//gonna be changed through database
-    const  Dist= "240m";//gonna be changed through database
-    //Typography gonna be changed through database
+
+
 
     return (
       <div className={classes.root}>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>{taskDes}</Typography>
-   
-            <Typography className={classes.secondaryHeading}>{Dist}</Typography>
-            <SwitchLabels />
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Near Mc Donalds, with three bags to carry
-
-            </Typography>
-            <Button variant="outlined" className={classes.button}>
-        Accept
-      </Button>
-
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>{taskDes}</Typography>
-   
-            <Typography className={classes.secondaryHeading}>{Dist}</Typography>
-            <SwitchLabels/>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Near Mc Donalds, with three bags to carry
-
-            </Typography>
-            <Button variant="outlined" className={classes.button}>
-        Accept
-      </Button>
-
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>{taskDes}</Typography>
-   
-            <Typography className={classes.secondaryHeading}>{Dist}</Typography>
-            <SwitchLabels/>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Near Mc Donalds, with three bags to carry
-
-            </Typography>
-            <Button 
-            variant="outlined" className={classes.button}
-            // onClick={() => props.history.push('./complete')}
-            >
-        Accept
-      </Button>
-
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>{taskDes}</Typography>
-   
-            <Typography className={classes.secondaryHeading}>{Dist}</Typography>
-            <SwitchLabels/>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>
-              Near Mc Donalds, with three bags to carry
-
-            </Typography>
-            <Button 
-            // onClick={() => props.history.push('./')}
+        <Typography className={classes.typography}>Current Beacons Near You</Typography>
+        {
+          this.state.beaconList.length !== 0 && this.state.beaconList.map(b => (
+            <ExpansionPanel key={b._id} className={classes.expansionPanel} expanded={expanded === b._id} onChange={this.handleChange(b._id)}>
+              <ExpansionPanelSummary className={classes.expansionPanelSummary} expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>{b.title}</Typography>
+                <Typography className={classes.secondaryHeading}>{b.desc}</Typography>
+                <SwitchLabels lifendeath={b.lnd} />
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails className={classes.detail}>
+                <Typography className={classes.detailText}>
+                  {b.locdesc}
+              </Typography>
+              <Button 
+            onClick = {this.toComplete}
             variant="outlined" className={classes.button}>
         Accept
       </Button>
 
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+
+          ))
+        }
       </div>
     );
   }

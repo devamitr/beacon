@@ -28,25 +28,14 @@ const styles = theme => ({
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
+  subheader: {
+    'font-size': '3rem',
+    'font-family': 'system-ui',
+    'font-weight': 300,
+    'margin-bottom': '2rem',
+  },
 });
 
-/**
- * The example data is structured as follows:
- *
- * import image from 'path/to/image.jpg';
- * [etc...]
- *
- * const tileData = [
- *   {
- *     img: image,
- *     title: 'Image',
- *     author: 'author',
- *   },
- *   {
- *     [etc...]
- *   },
- * ];
- */
 function TitlebarGridList(props) {
   const { classes } = props;
 
@@ -54,7 +43,7 @@ function TitlebarGridList(props) {
     <div className={classes.root}>
       <GridList cellHeight={180} className={classes.gridList}>
         <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-          <ListSubheader component="div">Rewards</ListSubheader>
+          <ListSubheader className={classes.subheader} component="div">Browse Our Rewards</ListSubheader>
         </GridListTile>
         {tileData.map(tile => (
           <GridListTile key={tile.img}>
@@ -64,12 +53,8 @@ function TitlebarGridList(props) {
               subtitle={<span>by: {tile.author}</span>}
               actionIcon={
                 <div>
-                {/* <Button variant="fab" mini color="secondary" aria-label="Add" className={classes.icon}>
-                  <AddIcon />
-                </Button> */}
                 <SimpleSnackbar/>
-              </div>
-       
+              </div> 
               }
             />
           </GridListTile>
