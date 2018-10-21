@@ -47,6 +47,7 @@ constructor(props, context){
    console.log(response);
    if(response.data == "Success"){
    console.log("Login successfull");
+   localStorage.setItem("currentUser",this.state.username);
    this.props.history.push('./');
    }
    else if(response.status == "Fail"){
