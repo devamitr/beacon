@@ -1,4 +1,4 @@
-import { API, postHeaders, request } from "./config";
+import { API, postHeaders, postRequest } from "./config";
 
 const createBeacon = (beacon) => {
     const payload = {
@@ -11,7 +11,7 @@ const createBeacon = (beacon) => {
         lnd: beacon.emergency,
     };
     console.log(payload);
-  return request(`${API}/createbeacon`, postHeaders(payload))
+  return postRequest(`${API}/createbeacon`, postHeaders(payload))
 };
 
 export default createBeacon;
