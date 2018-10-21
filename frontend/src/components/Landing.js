@@ -7,7 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 
 import SideBar from './SideBar';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Main from './Main';
 
 const styles = {
   iconButton: {
@@ -26,7 +27,7 @@ class Landing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sideBarOpen: true,
+      sideBarOpen: false,
     };
     this.toggleSideBar = this.toggleSideBar.bind(this);
   }
@@ -58,16 +59,6 @@ class Landing extends React.Component {
           toProfile={this.toProfile}
           toRewards={this.toRewards}
         />
-        <Card className={classes.card}>
-          <Button>Get Help</Button>
-        </Card>
-        <Card className={classes.card}>
-          <Button
-          onClick={this.toTasks}
-          >Offer Help</Button>
-          
-
-        </Card>
       </Grid>
     );
   }
