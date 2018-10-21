@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   progress: {
@@ -31,6 +32,10 @@ class CircularDeterminate extends React.Component {
     const { classes } = this.props;
     return (
       <div>
+        <Typography component="h5" variant="h5">
+          Waiting for Helper
+        </Typography>
+
         <CircularProgress
           className={classes.progress}
           variant="determinate"
