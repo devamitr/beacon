@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/core/styles';
 
+import createBeacon from '../api/createBeacon';
+
 const uuidv1 = require('uuid/v1');
 
 const styles = {
@@ -117,8 +119,12 @@ class CreateTask extends React.Component {
     const beacon = Object.assign({
       beaconId: uuidv1()
     }, this.state)
-    tasks.push(beacon);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    // tasks.push(beacon);
+
+    // localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    createBeacon(beacon);
   }
 
   render() {
