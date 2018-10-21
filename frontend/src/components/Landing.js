@@ -29,6 +29,10 @@ class Landing extends React.Component {
       sideBarOpen: !prevState.sideBarOpen,
     }));
   }
+
+  toProfile =() => this.props.history.push('./profile');
+  toRewards =() => this.props.history.push('./rewards');
+
   render() {
     const { classes } = this.props;
     return (
@@ -36,6 +40,8 @@ class Landing extends React.Component {
         <SideBar
           open={this.state.sideBarOpen}
           toggleSideBar={this.toggleSideBar}
+          toProfile={this.toProfile}
+          toRewards={this.toRewards}
         />
         <Card className={classes.card}>
           <p>Get Help</p>

@@ -25,29 +25,27 @@ const SideBar = (props) => {
         <ListItem
           button
           className={classes.listItem}
+          onClick={props.toProfile}
         >
-          <ListItemText primary="Profile" />
+          <ListItemText
+           primary="Profile" />
+
+        </ListItem>
+        <Divider />
+        <ListItem
+          button
+          className={classes.listItem}
+          onClick={props.toRewards}
+
+        >
+          <ListItemText primary="Rewards" />
         </ListItem>
         <Divider />
         <ListItem
           button
           className={classes.listItem}
         >
-          <ListItemText primary="Bookmarked Projects" />
-        </ListItem>
-        <Divider />
-        <ListItem
-          button
-          className={classes.listItem}
-        >
-          <ListItemText primary="Joined Projects" />
-        </ListItem>
-        <Divider/>
-        <ListItem
-          button
-          className={classes.listItem}
-        >
-          <ListItemText primary="Community Calendar" />
+          <ListItemText primary="Logout" />
         </ListItem>
         <Divider/>
       </List>
