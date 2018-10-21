@@ -6,10 +6,10 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-import Add from '@material-ui/icons/Add';
 import { withStyles } from '@material-ui/core/styles';
 
 const uuidv1 = require('uuid/v1');
@@ -20,11 +20,30 @@ const styles = {
     'flex-direction': 'column',
   },
   checkbox: {
-    margin: '2% auto',
+    margin: '1rem auto 1rem 1rem',
+  },
+  checkboxContainer: {
+    display: 'flex',
+    'align-items': 'center',
+  },
+  checkboxLabel: {
+    'margin-left': 'auto',
+    'color': 'red',
+    'font-weight': 700,
+    'font-family': 'system-ui',
+  },
+  header: {
+    'font-size': '3rem',
+    'font-weight': 300,
+    'font-family': 'system-ui',
   },
   textField: {
     margin: '2% auto',
     width: '20%',
+  },
+  longTextField: {
+    margin: '2% auto',
+    width: '40%',
   },
   icon: {
     'margin': '0 auto',
@@ -38,7 +57,7 @@ class CreateTask extends React.Component {
         title: "",
         description: "",
         emergency: false,
-        locationDesp: "NW",
+        locationDesp: "",
     };
     this.toggleEmergency = this.toggleEmergency.bind(this);
     this.updateField = this.updateField.bind(this);
@@ -78,37 +97,42 @@ class CreateTask extends React.Component {
     return (
       <Card>
         <CardContent className={classes.cardContent}>
+          <Typography className={classes.header}>
+            What do you need help for?
+          </Typography>
           <TextField
             className={classes.textField}
-            placeholder="What do you need help for?"
+            placeholder="How can we help you?"
             value={this.state.title}
             onChange={this.updateField('title')}
           />
           <TextField
-            className={classes.textField}
-            placeholder="Description"
+            className={classes.longTextField}
+            placeholder="Briefly describe the emergency"
             value={this.state.description}
             onChange={this.updateField('description')}
           />
           <TextField
-            className={classes.textField}
-            placeholder="Where exactly are you located? Closest landmarks, etc"
+            className={classes.longTextField}
+            placeholder="Where exactly are you located? Closest landmarks, gates, etc"
             value={this.state.locationDesp}
             onChange={this.updateField('locationDesp')}
           />
-          <Typography>Emergency?</Typography>
-          <Checkbox
-            className={classes.checkbox}
-            checked={this.state.emergency}
-            onChange={this.toggleEmergency}
-          />
+          <div className={classes.checkboxContainer}>
+            <Typography className={classes.checkboxLabel}>Life-threatening Emergency?</Typography>
+            <Checkbox
+              className={classes.checkbox}
+              checked={this.state.emergency}
+              onChange={this.toggleEmergency}
+            />
+          </div>
         </CardContent>
         <CardActions>
           <IconButton
             className={classes.icon}
             onClick={this.submitTask}
           >
-            <Add />
+            Submit
           </IconButton>
         </CardActions>
       </Card>
