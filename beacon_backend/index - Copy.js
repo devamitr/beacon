@@ -1,67 +1,21 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
+const express = require('express')
+const app = express()
+var bodyParser = require('body-parser');
 const port = process.env.PORT || 3000
-const path = require("path");
-const webpush = require("web-push");
-var cors = require('cors');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-app.use(express.json());
-
-
-app.use(express.static(path.join(__dirname, "client")));
-
-const corsOptions = {
-  origin: '*',
-  methods: 'GET,PUT,POST,DELETE',
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-};
-
-app.use(cors(corsOptions));
 
 // database integration
 const dburi = "mongodb+srv://sateendradey:WordPass1990!@cluster0-wgoht.mongodb.net/test?retryWrites=true";
 const mongo = require('mongodb');
 const MongoClient = require('mongodb').MongoClient;
 var db;
-var subscription;
-var noti_title = "Thanks for registering";
-
-const publicVapidKey =
-  "BDqDsYLQyk5vthxJ0vDHLLZRR3XWvN8ZVTayKsloBkVYBxk4yo738QLh8PS835qLPAN-iSzdQ_FPTKo2ZBPqV4g";
-const privateVapidKey = "ENG6J5gBd2v7xV36Y_lBv8Qhbrjzeahs6C02ZQHlj4c";
-
-webpush.setVapidDetails(
-  "mailto:test@test.com",
-  publicVapidKey,
-  privateVapidKey
-);
 
 
-// save subscription
-app.post("/subscribe", (req, res) => {
-  // Get pushSubscription object
-   subscription = req.body;
-    console.log(subscription);
-
-  // Send 201 - resource created
-  res.status(201).json({});
-
-  // Create payload
-  const payload = JSON.stringify({ title:  noti_title});
-
-  // Pass object into sendNotification
-  webpush
-    .sendNotification(subscription, payload)
-    .catch(err => console.error(err));
-});
-
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+app.use(express.json());
 
 app.get('/', (req, res) => res.send('Hello World!'))
 // beacon end points
@@ -172,7 +126,6 @@ app.post('/inc',function(req, res){
 
 
 
-
 function AddProfile(new_prof, callback){
 var dbo = db.db("User_DB");
   dbo.collection('Details_Cols').insertOne(new_prof, function (err, result) {
@@ -214,10 +167,8 @@ function CreateBeacon(new_beacon, callback){
   dbo.collection('Beacons').insertOne(new_beacon, function (err, result) {
       if (err)
          return callback('Error');
-      else{
-          noti_title = new_beacon.title;
+      else
         return callback('Success');
-      }
   });
 }
 
@@ -317,16 +268,6 @@ function getCurrDateTime(){
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
     return dateTime;
-}
-
-function sendNotification(value){   
-    console.log("In send Notification");
-  const payload = value;
-
-  // Pass object into sendNotification
-  webpush
-    .sendNotification(subscription, payload)
-    .catch(err => console.error(err));
 }
 
 
