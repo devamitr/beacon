@@ -22,6 +22,7 @@ const styles = {
 // const lat = 42.02;
 // const lng= -77.01;//grab location from database
 
+
 class MapContainer extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +41,7 @@ class MapContainer extends Component {
     <div className= {classes.MapContainer}>
 <MediaCard className={classes.colorcard}/>
 <Map google={this.props.google}
-    style={{width: '100%', height: '100%', position: 'relative'}}
+    style={{width: '100%', height: '50%', position: 'relative'}}
     className={'map'}
     zoom={14}
     initialCenter={{

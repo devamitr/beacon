@@ -8,6 +8,7 @@
     "axios": "^0.18.0",
     "es6-promise": "^4.2.5",
     "firebase": "^5.5.5",
+    "geolib": "^2.0.24",
     "google-maps-react": "^2.0.2",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.20.2",
