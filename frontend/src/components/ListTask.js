@@ -50,10 +50,10 @@ const styles = theme => ({
     'margin-bottom': '2rem',
   },
 });
-const lat1 = 42.02;
-const lon1= -77.01;//grab location from database
-const lat2 = 43.02;
-const lon2= -77.01;//grab location from database
+const lat1 = 55.930;
+const lon1= -3.118;//grab location from database
+const lat2 = 55.930;
+const lon2= -3.1118;//grab location from database
 
 
 
@@ -81,7 +81,7 @@ class ControlledExpansionPanels extends React.Component {
       })
   }
 
-  distance(lat1, lon1, lat2, lon2) {
+  distance(lat1, lon1, lat2, lon2,unit) {
     var radlat1 = Math.PI * lat1/180
     var radlat2 = Math.PI * lat2/180
     var theta = lon1-lon2
@@ -93,7 +93,10 @@ class ControlledExpansionPanels extends React.Component {
     dist = Math.acos(dist)
     dist = dist * 180/Math.PI
     dist = dist * 60 * 1.1515
-    return dist/1000
+    if (unit=="K") { dist = dist * 1.609344 }
+    if (unit=="N") { dist = dist * 0.8684 }
+  
+    return dist*1000
 }
 
   render() {
@@ -108,7 +111,7 @@ class ControlledExpansionPanels extends React.Component {
             <ExpansionPanel key={b._id} className={classes.expansionPanel} expanded={expanded === b._id} onChange={this.handleChange(b._id)}>
               <ExpansionPanelSummary className={classes.expansionPanelSummary} expandIcon={<ExpandMoreIcon />}>
                 <Typography className={classes.heading}>{b.title}</Typography>
-                <Typography className={classes.secondaryHeading}>{this.distance(lat1, lon1, lat2, lon2)}</Typography>
+                <Typography className={classes.secondaryHeading}>{`${this.distance(lat1, lon1, lat2, lon2, "K")} m`}</Typography>
                 <SwitchLabels lifendeath={b.lnd} />
               </ExpansionPanelSummary>
               <ExpansionPanelDetails className={classes.detail}>
