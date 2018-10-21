@@ -7,6 +7,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SwitchLabels from './toggles';
+import Button from '@material-ui/core/Button';
+
 
 const styles = theme => ({
   root: {
@@ -55,6 +57,9 @@ class ControlledExpansionPanels extends React.Component {
               Near Mc Donalds, with three bags to carry
 
             </Typography>
+            <Button variant="outlined" className={classes.button}>
+        Accept
+      </Button>
 
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -70,6 +75,9 @@ class ControlledExpansionPanels extends React.Component {
               Near Mc Donalds, with three bags to carry
 
             </Typography>
+            <Button variant="outlined" className={classes.button}>
+        Accept
+      </Button>
 
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -85,6 +93,12 @@ class ControlledExpansionPanels extends React.Component {
               Near Mc Donalds, with three bags to carry
 
             </Typography>
+            <Button 
+            variant="outlined" className={classes.button}
+            // onClick={() => props.history.push('./complete')}
+            >
+        Accept
+      </Button>
 
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -100,6 +114,11 @@ class ControlledExpansionPanels extends React.Component {
               Near Mc Donalds, with three bags to carry
 
             </Typography>
+            <Button 
+            // onClick={() => props.history.push('./')}
+            variant="outlined" className={classes.button}>
+        Accept
+      </Button>
 
           </ExpansionPanelDetails>
         </ExpansionPanel>
