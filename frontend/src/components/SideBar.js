@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   list: {
-    width: '15rem',
+    width: '8rem',
   },
   listItem: {
     'text-align': 'left',
