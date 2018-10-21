@@ -22,34 +22,13 @@ class SwitchLabels extends React.Component {
 
   render() {
       const {classes} = this.props;
+      const lifendeath = true; //gonna be changed through database
+      const switched = lifendeath 
+        ? <FormControlLabel disabled control={<Switch value="checkedD" />} label="non life and death" />
+        :  <FormControlLabel disabled control={<Switch checked value="checkedE" />} label="life and death" />
     return (
       <FormGroup row>
-        
-        <FormControlLabel 
-          
-          disabled control={
-            <Switch className={classes.toggleStyle}
-              checked={this.state.checkedA}
-              onChange={this.handleChange('checkedA')}
-              value="checkedA"
-            />
-          }
-          label="Emergency"
-        />
-        {/* <FormControlLabel
-          control={
-            <Switch
-              checked={this.state.checkedB}
-              onChange={this.handleChange('checkedB')}
-              value="checkedB"
-              color="primary"
-            />
-          }
-          label="Primary"
-        /> */}
-        {/* <FormControlLabel control={<Switch value="checkedC" />} label="Uncontrolled" /> */}
-        {/* <FormControlLabel disabled control={<Switch value="checkedD" />} label="Disabled" /> */}
-        {/* <FormControlLabel disabled control={<Switch checked value="checkedE" />} label="Disabled" /> */}
+        {switched}
       </FormGroup>
     );
   }
