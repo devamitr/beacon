@@ -47,10 +47,7 @@ constructor(props, context){
    console.log(response);
    if(response.data == "Success"){
    console.log("Login successfull");
-<<<<<<< HEAD
    localStorage.setItem("currentUser",this.state.username);
-=======
->>>>>>> 3f2b3f9bb38d6b85fde6afe65f1305ecde685d3e
    this.props.history.push('./');
    }
    else if(response.status == "Fail"){
@@ -113,8 +110,4 @@ render() {
 const style = {
  margin: 15,
 };
-<<<<<<< HEAD
 export default Login;
-=======
-export default Login;
->>>>>>> 3f2b3f9bb38d6b85fde6afe65f1305ecde685d3e
