@@ -100,8 +100,6 @@ class ControlledExpansionPanels extends React.Component {
     const { classes } = this.props;
     const { expanded } = this.state;
 
-
-
     return (
       <div className={classes.root}>
         <Typography className={classes.typography}>Current Beacons Near You</Typography>
@@ -117,7 +115,7 @@ class ControlledExpansionPanels extends React.Component {
                 <Typography className={classes.detailText}>
                   {b.locdesc}
                 </Typography>
-                <Link to={{ pathname: '/complete', state: { lat: b.lat, lon: b.lon } }}>
+                <Link to={{ pathname: '/complete', state: { lat: b.lat, lng: b.lon } }}>
                   <Button
                     variant="outlined" className={classes.button}>
                     Accept

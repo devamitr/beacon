@@ -45,15 +45,15 @@ class MapContainer extends Component {
     className={'map'}
     zoom={14}
     initialCenter={{
-      lat: 23.973875,
-      lng: 120.982024
+      lat: this.props.location.state.lat,
+      lng: this.props.location.state.lng,
     }}
 >
 
   <Marker
     title={'The marker`s title will appear as a tooltip.'}
     name={'SOMA'}
-    position={{lat: 23.973875, lng: 120.982024}} />
+    position={{lat: this.props.location.state.lat, lng: this.props.location.state.lng }} />
 </Map>
 
 <Button
