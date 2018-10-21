@@ -17,51 +17,13 @@ app.use(bodyParser.urlencoded({
 app.use(express.json());
 
 app.get('/', (req, res) => res.send('Hello World!'))
+// beacon end points
 
-app.get('/profile/:id', function (req, res) {
-    var prof_id = req.params.id;
-    //request.query : for query string params
-    //res.send(getProfile(prof_id));
-    getProfile("amitr", function(response){
-	   console.log(response);
-        res.send(response);
-    });
-});
-
-app.get('/beacon', function (req, res) {
-    //var bec_id = req.params.id;
-    //res.send(GetBeacon(bec_id));
-    GetBeacon(function(response){
-	   console.log(response);
-        res.send(response);
-    });
-});
-
-app.post('/profile', function (req, res) {
-    dateTime = getCurrDateTime();
-   const new_prof = {
-       uname: req.body.uname, // username
-       pass:req.body.pass, // password
-       name: req.body.name, // name
-       gate: req.body.gate, // gate no
-       phn: req.body.phn, // phone
-       airl: req.body.airl, // airline
-       lat:req.body.lat,
-       lon:req.body.lon,
-       lasttime:dateTime,
-       stat:'1'
-   };     
-    AddProfile(new_prof,function(response){
-	   console.log(response);
-        res.send(response);
-    });
-    
-});
-
-app.post('/beacon', function (req, res) {
+app.post('/createbeacon', function (req, res) {
    const new_beacon = {
        desc: req.body.desc,
-       loc: req.body.loc,
+       lat: req.body.lat,
+       lon: req.body.lon,
        time: req.body.time,
        userid: req.body.userid,
        status: '0' 
@@ -72,9 +34,77 @@ app.post('/beacon', function (req, res) {
     });
 });
 
-app.post('/login', function(req, res){
+//complete beacon
+app.post('/completebeacon', function (req, res) {   
+});
+
+//user end points
+//to get user's profile
+app.get('/profile/:id', function (req, res) {
+    var prof_id = req.params.id;
+    //request.query : for query string params
+    //res.send(getProfile(prof_id));
+    getProfile("amitr", function(response){
+	   console.log(response);
+        res.send(response);
+    });
+});
+
+// get active becons nearby
+app.get('/activebeacons', function (req, res) {
+     GetBeacon(function(response){
+	   console.log(response);
+        res.send(response);
+    });
+});
+
+
+//to create users profile
+app.post('/profile', function (req, res) {
+    dateTime = getCurrDateTime();
+   const new_prof = {
+       uname: req.body.uname, // username: email
+       pass:req.body.pass, // password
+       name: req.body.name, // name
+       gate: 'X', // gate no
+       phn: req.body.phn, // phone
+       airl: 'NoAirline', // airline
+       lat:'0',
+       lon:'0',
+       lasttime:dateTime,
+       credits:0,
+       stat:'1'
+   };     
+    AddProfile(new_prof,function(response){
+	   console.log(response);
+        res.send(response);
+    });
     
 });
+
+//to login: capture current location and login time
+app.post('/login', function(req, res){
+    processLogin(req.body,function(response){
+       console.log(response);
+        res.send(response);    
+    });
+});
+
+// Accept beacon
+
+// Logout : change status
+
+// get beacon status
+
+
+
+
+
+
+
+
+
+
 
 function AddProfile(new_prof, callback){
 var dbo = db.db("User_DB");
@@ -122,15 +152,15 @@ function getProfile(user_id, callback) {
     });
 }
 
-function processLogin(userid,lat,lon,callback){
-  var dbo = db.db("mydb");
-  var myquery = { uname: userid };
+function processLogin(body_obj,callback){
+  var dbo = db.db("User_DB");
+  var myquery = { uname: body_obj.userid };
   var dateTime = getCurrDateTime();  
-  var newvalues = { $set: {lasttime: dateTime, lat: lat, lon:lon } };
-  dbo.collection("customers").updateOne(myquery, newvalues, function(err, res) {
-    if (err) throw err;
+  var newvalues = { $set: {lasttime: dateTime, lat: body_obj.lat, lon:body_obj.lon, airl:body_obj.airl,  gate:body_obj.gate} };
+  dbo.collection("Details_Cols").updateOne(myquery, newvalues, function(err, res) {
+    if (err) {callback("fail")}
     console.log("1 document updated");
-    db.close();
+      callback("Success");
   });
 }
 
@@ -152,11 +182,15 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 }
 
 function getCurrDateTime(){
+    var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
     return dateTime;
 }
+
+
+//function sendNotification(beacon,callback){}
 
 MongoClient.connect(dburi, function (err, database) {
    if (err) 
