@@ -8,6 +8,8 @@ import ControlledExpansionPanels from '../components/ListTask';
 import Register from '../components/Register';
 import Login from '../components/Login';
 import Main from '../components/Main';
+import MapContainer from "../components/CompleteT";
+import CircularDeterminate from "../components/waiting";
 
 const Routes = () => (
   <div>
@@ -19,6 +21,9 @@ const Routes = () => (
     <Route exact path="/tasks" component={ControlledExpansionPanels} />
     <Route exact path="/register" component={Register} />
     <Route exact path="/login" component={Login} />
+    <Route exact path="/complete" component={MapContainer} />
+    <Route exact path="/waiting" component={CircularDeterminate} />
+
   </div>
 );
 

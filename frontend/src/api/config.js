@@ -48,3 +48,7 @@ export const deleteHeaders = (payload) => ({
 export const request = (url, header) => {
   return fetch(url, header).then(res => res.json());
 };
+
+export const postRequest = (url, header) => {
+    return fetch(url, header).then(res => {console.log(res)});
+  };

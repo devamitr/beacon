@@ -69,6 +69,7 @@ class CreateTask extends React.Component {
     this.processLocation = this.processLocation.bind(this);
     this.storeLocation = this.storeLocation.bind(this);
     this.setLocationError = this.setLocationError.bind(this);
+
   }
 
   componentDidMount() {
@@ -126,6 +127,7 @@ class CreateTask extends React.Component {
 
     createBeacon(beacon);
   }
+  toWait =() => this.props.history.push('./waiting');
 
   render() {
     const { classes } = this.props;
@@ -165,7 +167,7 @@ class CreateTask extends React.Component {
         <CardActions>
           <IconButton
             className={classes.icon}
-            onClick={this.processLocation}
+            onClick = {this.toWait}
           >
             Submit
           </IconButton>

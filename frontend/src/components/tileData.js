@@ -16,15 +16,15 @@ export const tileData = [{
 
   }, 
   {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ14Y0-XIAl4WrEN1TKkZ8txrN8SCAwLLwveaOi4JRM-DXhSt3fGQ",
-    title: 'lions',
-    author: 'author4',
+    img: "https://production-gameflipusercontent.fingershock.com/us-east-1:47d82dc3-4acd-4d96-8053-9ae2fae26d3a/531dd84f-d193-4eb5-b549-0fd0d7c99ce4/781c67f6-0467-4eb4-bdbd-34c02fc4eb12",
+    title: '100 gift card',
+    author: 'Amazon',
 
   }, 
   {
-    img: "https://d3pz1jifuab5zg.cloudfront.net/2016/08/16153058/hamster-health-center-2.jpg",
-    title: 'hamsters',
-    author: 'author5',
+    img: "https://www.macobserver.com/wp-content/uploads/2016/09/apple-music-gift-card.jpg",
+    title: 'gift card',
+    author: 'Apple Music',
 
   },
 ];

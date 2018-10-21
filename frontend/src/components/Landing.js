@@ -39,7 +39,9 @@ class Landing extends React.Component {
 
   toProfile =() => this.props.history.push('./profile');
   toRewards =() => this.props.history.push('./rewards');
-  toTasks =() => this.props.history.push('./tasks');
+  toTasks =() => this.props.history.push('./tasks');  
+  toComplete =() => this.props.history.push('./complete');
+
 
   render() {
     const { classes } = this.props;

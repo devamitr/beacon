@@ -7,6 +7,10 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SwitchLabels from './toggles';
+import Button from '@material-ui/core/Button';
+
+
+import getBeacons from '../api/getBeacons';
 
 const styles = theme => ({
   root: {
@@ -49,6 +53,7 @@ const styles = theme => ({
 class ControlledExpansionPanels extends React.Component {
   state = {
     expanded: null,
+    beaconList: [],
   };
 
   handleChange = panel => (event, expanded) => {
@@ -57,71 +62,51 @@ class ControlledExpansionPanels extends React.Component {
     });
   };
 
+  componentDidMount() {
+    getBeacons()
+      .then(res => {
+        this.setState({
+          beaconList: res,
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+  toComplete =() => this.props.history.push('./complete');
+
   render() {
     const { classes } = this.props;
     const { expanded } = this.state;
-    const taskDes= "Fell of the stairs";//gonna be changed through database
-    const  Dist= "240m";//gonna be changed through database
-    //Typography gonna be changed through database
+
+
 
     return (
       <div className={classes.root}>
         <Typography className={classes.typography}>Current Beacons Near You</Typography>
-        <ExpansionPanel className={classes.expansionPanel} expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary className={classes.expansionPanelSummary} expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>{taskDes}</Typography>
-            <Typography className={classes.secondaryHeading}>{Dist}</Typography>
-            <SwitchLabels />
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.detail}>
-            <Typography className={classes.detailText}>
-              Near Mc Donalds, with three bags to carry
-            </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel className={classes.expansionPanel} expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary className={classes.expansionPanelSummary} expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Heart Attack</Typography>
-            <Typography className={classes.secondaryHeading}>{Dist}</Typography>
-            <SwitchLabels/>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.detail}>
-            <Typography className={classes.detailText}>
-              Near Mc Donalds, with three bags to carry
+        {
+          this.state.beaconList.length !== 0 && this.state.beaconList.map(b => (
+            <ExpansionPanel key={b._id} className={classes.expansionPanel} expanded={expanded === b._id} onChange={this.handleChange(b._id)}>
+              <ExpansionPanelSummary className={classes.expansionPanelSummary} expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>{b.title}</Typography>
+                <Typography className={classes.secondaryHeading}>{b.desc}</Typography>
+                <SwitchLabels lifendeath={b.lnd} />
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails className={classes.detail}>
+                <Typography className={classes.detailText}>
+                  {b.locdesc}
+              </Typography>
+              <Button 
+            onClick = {this.toComplete}
+            variant="outlined" className={classes.button}>
+        Accept
+      </Button>
 
-            </Typography>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
 
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel className={classes.expansionPanel} expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary className={classes.expansionPanelSummary} expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Wife in Labor</Typography>
-            <Typography className={classes.secondaryHeading}>{Dist}</Typography>
-            <SwitchLabels/>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.detail}>
-            <Typography className={classes.detailText}>
-              Near Mc Donalds, with three bags to carry
-
-            </Typography>
-
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel className={classes.expansionPanel} expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
-          <ExpansionPanelSummary className={classes.expansionPanelSummary} expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Not able to carry luggage</Typography>
-   
-            <Typography className={classes.secondaryHeading}>{Dist}</Typography>
-            <SwitchLabels/>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.detail}>
-            <Typography className={classes.detailText}>
-              Near Mc Donalds, with three bags to carry
-
-            </Typography>
-
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+          ))
+        }
       </div>
     );
   }
