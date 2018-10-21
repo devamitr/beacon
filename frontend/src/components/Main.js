@@ -14,11 +14,13 @@ const Main = (props) => (
     <div>
         <Card className={props.classes.card}>
             <Button
-                onClick={() => props.history.push('./tasks')}
+            onClick={() => props.history.push('./create')}
             >Get Help</Button>
         </Card>
         <Card className={props.classes.card}>
             <Button
+            onClick={() => props.history.push('./tasks')}
+
             >Offer Help</Button>
         </Card>
     </div>

@@ -22,6 +22,17 @@ const SideBar = (props) => {
   const sideList = (
     <div className={classes.list}>
       <List component="nav">
+      <ListItem
+          button
+          className={classes.listItem}
+          onClick={() => props.history.push('./')}
+        >
+          <ListItemText
+           primary="Home" />
+
+        </ListItem>
+        <Divider/>
+
         <ListItem
           button
           className={classes.listItem}
@@ -47,7 +58,7 @@ const SideBar = (props) => {
         >
           <ListItemText primary="Logout" />
         </ListItem>
-        <Divider/>
+
       </List>
     </div>
   );

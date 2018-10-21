@@ -58,6 +58,7 @@ class Landing extends React.Component {
           toggleSideBar={this.toggleSideBar}
           toProfile={this.toProfile}
           toRewards={this.toRewards}
+          history={this.props.history}
         />
       </Grid>
     );
