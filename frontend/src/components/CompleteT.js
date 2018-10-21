@@ -40,19 +40,19 @@ class MapContainer extends Component {
     <div className= {classes.MapContainer}>
 <MediaCard className={classes.colorcard}/>
 <Map google={this.props.google}
-    style={{width: '100%', height: '100%', position: 'relative'}}
+    style={{width: '100%', height: '50%', position: 'relative'}}
     className={'map'}
     zoom={14}
     initialCenter={{
-      lat: 23.973875,
-      lng: 120.982024
+      lat: this.props.location.state.lat,
+      lng: this.props.location.state.lng,
     }}
 >
 
   <Marker
     title={'The marker`s title will appear as a tooltip.'}
     name={'SOMA'}
-    position={{lat: 23.973875, lng: 120.982024}} />
+    position={{lat: this.props.location.state.lat, lng: this.props.location.state.lng }} />
 </Map>
 
 <Button
