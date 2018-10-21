@@ -9,6 +9,7 @@
     "firebase": "^5.5.5",
     "google-maps-react": "^2.0.2",
     "isomorphic-fetch": "^2.2.1",
+    "material-ui": "^0.20.2",
     "react": "^16.5.2",
     "react-compose": "^2.0.0",
     "react-dom": "^16.5.2",

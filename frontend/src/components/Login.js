@@ -1,103 +1,112 @@
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 import React from 'react';
-import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
+import axios from 'axios';
 
-const styles = theme => ({
-  layout: {
-    width: 'auto',
-    display: 'block', // Fix IE 11 issue.
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 400,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
-  paper: {
-    marginTop: theme.spacing.unit * 8,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-  },
-  avatar: {
-    margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing.unit,
-  },
-  submit: {
-    marginTop: theme.spacing.unit * 3,
-  },
-});
+class Login extends React.Component {
+constructor(props, context){
+  super(props, context);
+  this.state={
+  username:'',
+  password:'',
+  lat: "",
+  lon: "",
+  state: "false",
+  }
+  this.handleClick = this.handleClick.bind(this);
+  this.storeLocation = this.storeLocation.bind(this);
+  this.submitTask = this.submitTask.bind(this);
+ }
 
-function Login(props) {
-  const { classes } = props;
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Log In 
-          </Typography>
-          <form className={classes.form}>
+ storeLocation(pos) {
+   const crd = pos.coords;
+   this.setState({
+     lon: crd.longitude,
+     lat: crd.latitude,}, () => {
+       this.submitTask();
+     });
+ }
 
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                name="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={() => props.history.push('./')}
+ submitTask() {
+   var apiBaseUrl = "https://beaconhacktx18.herokuapp.com/login";
+   var self = this;
+   console.log("Button pressed");
+   var payload={
+   "uname":this.state.username,
+   "pass":this.state.password,
+   "gate":" ",
+   "airl":" ",
+   "lat":this.state.lat,
+   "lon":this.state.lon,
+   }
+   axios.post(apiBaseUrl, payload)
+   .then((response) => {
+   console.log(response);
+   if(response.data == "Success"){
+   console.log("Login successfull");
+   this.props.history.push('./');
+   }
+   else if(response.status == "Fail"){
+   console.log("Check username/password");
+   alert("Check username/password")
+   }
+   else{
+   console.log("Username does not exists");
+   alert("Username does not exist");
+   }
+   })
+   .catch(function (error) {
+   console.log(error);
+   });
+ }
 
-            >
-              Log in
-            </Button>
-          </form>
-        </Paper>
-      </main>
-    </React.Fragment>
-  );
+ setLocationError(err) {
+   console.warn(`ERROR(${err.code}): ${err.message}`);
+ }
+
+ handleClick(event){
+   const options = {
+     enableHighAccuracy: true,
+     timeout: 5000,
+     maximumAge: 0
+   };
+   navigator.geolocation.getCurrentPosition(this.storeLocation, this.setLocationError, options);
+   if (this.state.valid == "true")
+    this.props.history.push('./');
 }
 
-Login.propTypes = {
-  classes: PropTypes.object.isRequired,
+render() {
+    return (
+      <div>
+        <MuiThemeProvider>
+          <div>
+          <AppBar
+             title="Login"
+           />
+           <TextField
+             hintText="Enter your Username"
+             floatingLabelText="Username"
+             onChange = {(event,newValue) => this.setState({username:newValue})}
+             />
+           <br/>
+             <TextField
+               type="password"
+               hintText="Enter your Password"
+               floatingLabelText="Password"
+               onChange = {(event,newValue) => this.setState({password:newValue})}
+               />
+             <br/>
+             <RaisedButton label="Submit" primary={true} style={style} onClick={() => this.handleClick()}/>
+         </div>
+         </MuiThemeProvider>
+      </div>
+    );
+  }
+}
+const style = {
+ margin: 15,
 };
-
-export default withStyles(styles)(Login);
+export default Login;
