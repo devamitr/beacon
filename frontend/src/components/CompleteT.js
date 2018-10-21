@@ -3,22 +3,37 @@ import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import MediaCard from './Card';
 import Button from '@material-ui/core/Button';
+import  compose  from 'recompose/compose';
 
-const style = {
-    width: '50%',
-    height: '50%'
+const styles = {
+  colorcard:{
+    width: '100%',
+    height: '70%',
+
+  },
+
+  MapContainer:{
+    display: 'flex',
+    'flex-direction':'column',
   }
+  }
+
 const lat = 42.02;
 const lng= -77.01;//grab location from database
 
 class MapContainer extends Component {
+  toHome =() => this.props.history.push('./');
+
     render() {
+      const { classes } = this.props;
+
       return (
 
 
-    <div className="MapContainer">
-    <Map google={this.props.google}
-    style={{width: '100%', height: '60%', position: 'relative'}}
+    <div className= {classes.MapContainer}>
+<MediaCard className={classes.colorcard}/>
+<Map google={this.props.google}
+    style={{width: '100%', height: '50%', position: 'relative'}}
     className={'map'}
     zoom={15}>
 
@@ -32,12 +47,12 @@ class MapContainer extends Component {
     position={{lat: 37.778519, lng: -122.405640}} />
   <Marker />
 </Map>
-<MediaCard/>
+
 <Button
               type="submit"
               variant="contained"
               color="primary"
-              // onClick={() => props.history.push('./')}
+              onClick = {this.toHome}
 
             >
               Confirm
@@ -48,7 +63,9 @@ class MapContainer extends Component {
     }
   }
 
-  export default GoogleApiWrapper({
+  export default compose (
+    withStyles (styles, {name:'MapContainer'}),
+    GoogleApiWrapper({
     apiKey: ('AIzaSyA6d-b1oLwH9632Q91P_WNOUbHPXxGzBEk')
-  })(MapContainer)
+  }))(MapContainer)
   
