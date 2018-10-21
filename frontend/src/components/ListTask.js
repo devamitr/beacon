@@ -60,7 +60,7 @@ class ControlledExpansionPanels extends React.Component {
   render() {
     const { classes } = this.props;
     const { expanded } = this.state;
-    const  taskDes= "Fell of the stairs";//gonna be changed through database
+    const taskDes= "Fell of the stairs";//gonna be changed through database
     const  Dist= "240m";//gonna be changed through database
     //Typography gonna be changed through database
 
@@ -81,7 +81,7 @@ class ControlledExpansionPanels extends React.Component {
         </ExpansionPanel>
         <ExpansionPanel className={classes.expansionPanel} expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
           <ExpansionPanelSummary className={classes.expansionPanelSummary} expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>{taskDes}</Typography>
+            <Typography className={classes.heading}>Heart Attack</Typography>
             <Typography className={classes.secondaryHeading}>{Dist}</Typography>
             <SwitchLabels/>
           </ExpansionPanelSummary>
@@ -95,7 +95,7 @@ class ControlledExpansionPanels extends React.Component {
         </ExpansionPanel>
         <ExpansionPanel className={classes.expansionPanel} expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
           <ExpansionPanelSummary className={classes.expansionPanelSummary} expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>{taskDes}</Typography>
+            <Typography className={classes.heading}>Wife in Labor</Typography>
             <Typography className={classes.secondaryHeading}>{Dist}</Typography>
             <SwitchLabels/>
           </ExpansionPanelSummary>
@@ -109,7 +109,7 @@ class ControlledExpansionPanels extends React.Component {
         </ExpansionPanel>
         <ExpansionPanel className={classes.expansionPanel} expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
           <ExpansionPanelSummary className={classes.expansionPanelSummary} expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>{taskDes}</Typography>
+            <Typography className={classes.heading}>Not able to carry luggage</Typography>
    
             <Typography className={classes.secondaryHeading}>{Dist}</Typography>
             <SwitchLabels/>
