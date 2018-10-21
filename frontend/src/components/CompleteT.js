@@ -19,8 +19,8 @@ const styles = {
   }
   }
 
-const lat = 42.02;
-const lng= -77.01;//grab location from database
+// const lat = 42.02;
+// const lng= -77.01;//grab location from database
 
 class MapContainer extends Component {
   constructor(props) {
@@ -40,19 +40,19 @@ class MapContainer extends Component {
     <div className= {classes.MapContainer}>
 <MediaCard className={classes.colorcard}/>
 <Map google={this.props.google}
-    style={{width: '100%', height: '50%', position: 'relative'}}
+    style={{width: '100%', height: '100%', position: 'relative'}}
     className={'map'}
-    zoom={15}>
+    zoom={14}
+    initialCenter={{
+      lat: 23.973875,
+      lng: 120.982024
+    }}
+>
 
   <Marker
-    name={'Dolores park'}
-    position={{lat: {lat}, lng: {lng}}} />
-  <Marker />
-
-  <Marker
-    name={'Dolores park'}
-    position={{lat: 37.778519, lng: -122.405640}} />
-  <Marker />
+    title={'The marker`s title will appear as a tooltip.'}
+    name={'SOMA'}
+    position={{lat: 23.973875, lng: 120.982024}} />
 </Map>
 
 <Button
