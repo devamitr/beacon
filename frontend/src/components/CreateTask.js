@@ -58,10 +58,15 @@ class CreateTask extends React.Component {
         description: "",
         emergency: false,
         locationDesp: "",
+        lat: "",
+        lon: "",
     };
     this.toggleEmergency = this.toggleEmergency.bind(this);
     this.updateField = this.updateField.bind(this);
     this.submitTask = this.submitTask.bind(this);
+    this.processLocation = this.processLocation.bind(this);
+    this.storeLocation = this.storeLocation.bind(this);
+    this.setLocationError = this.setLocationError.bind(this);
   }
 
   componentDidMount() {
@@ -83,8 +88,32 @@ class CreateTask extends React.Component {
     }
   }
 
-  submitTask(e) {
+  storeLocation(pos) {
+    const crd = pos.coords;
+    this.setState({
+      lon: crd.longitude,
+      lat: crd.latitude,
+    }, () => {
+      this.submitTask();
+    });
+  }
+
+  setLocationError(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);  
+  }
+
+  processLocation() {
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    };
+    navigator.geolocation.getCurrentPosition(this.storeLocation, this.setLocationError, options);
+  }
+
+  submitTask() {
     const tasks = localStorage.getItem('tasks') ? JSON.parse(localStorage.getItem('tasks')) : [];
+
     const beacon = Object.assign({
       beaconId: uuidv1()
     }, this.state)
@@ -130,7 +159,7 @@ class CreateTask extends React.Component {
         <CardActions>
           <IconButton
             className={classes.icon}
-            onClick={this.submitTask}
+            onClick={this.processLocation}
           >
             Submit
           </IconButton>
