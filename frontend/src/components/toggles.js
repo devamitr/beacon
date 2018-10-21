@@ -25,8 +25,8 @@ class SwitchLabels extends React.Component {
   render() {
       const { classes, lifendeath } = this.props;
       const switched = lifendeath 
-        ? <FormControlLabel disabled control={<Switch value="checkedD" />} label="non life and death" />
-        :  <FormControlLabel disabled control={<Switch checked value="checkedE" />} label="life and death" />
+        ? <FormControlLabel disabled control={<Switch checked value="checkedE" />} label="life and death" />
+        :  <FormControlLabel disabled control={<Switch value="checkedD" />} label="non life and death" />
     return (
       <FormGroup row className={classes.row}>
         {switched}

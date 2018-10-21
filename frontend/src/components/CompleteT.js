@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MediaCard from './Card';
 import Button from '@material-ui/core/Button';
 import  compose  from 'recompose/compose';
+import getBeacons from '../api/getBeacons';
 
 const styles = {
   colorcard:{
@@ -22,7 +23,13 @@ const lat = 42.02;
 const lng= -77.01;//grab location from database
 
 class MapContainer extends Component {
-  toHome =() => this.props.history.push('./');
+  constructor(props) {
+    super(props);
+    this.state = {
+      beaconList: [],
+    };
+  }
+    toHome =() => this.props.history.push('./');
 
     render() {
       const { classes } = this.props;
