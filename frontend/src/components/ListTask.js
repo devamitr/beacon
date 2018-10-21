@@ -96,7 +96,7 @@ class ControlledExpansionPanels extends React.Component {
     if (unit=="K") { dist = dist * 1.609344 }
     if (unit=="N") { dist = dist * 0.8684 }
   
-    return dist*1000
+    return Math.round(dist*1000)
 }
 
   render() {
