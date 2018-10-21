@@ -51,7 +51,7 @@ class SimpleSnackbar extends React.Component {
           ContentProps={{
             'aria-describedby': 'message-id',
           }}
-          message={<span id="message-id">Reward Received</span>}
+          message={<span id="message-id">Reward Claimed</span>}
           action={[
             <Button key="undo" color="secondary" size="small" onClick={this.handleClose}>
               UNDO
