@@ -1,26 +1,26 @@
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import React, {Component} from 'react';
+import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import MediaCard from './Card';
 import Button from '@material-ui/core/Button';
-import  compose  from 'recompose/compose';
+import compose from 'recompose/compose';
 import getBeacons from '../api/getBeacons';
 
 const styles = {
-  colorcard:{
+  colorcard: {
     width: '100%',
     height: '70%',
 
   },
 
-  MapContainer:{
+  MapContainer: {
     display: 'flex',
-    'flex-direction':'column',
+    'flex-direction': 'column',
   }
-  }
+}
 
-const lat = 42.02;
-const lng= -77.01;//grab location from database
+// const lat = 42.02;
+// const lng = -77.01;//grab location from database
 
 class MapContainer extends Component {
   constructor(props) {
@@ -29,50 +29,47 @@ class MapContainer extends Component {
       beaconList: [],
     };
   }
-    toHome =() => this.props.history.push('./');
+  toHome = () => this.props.history.push('./');
 
-    render() {
-      const { classes } = this.props;
+  render() {
+    const { classes } = this.props;
+    console.log(this.props.location.state);
+    return (
+      <div className={classes.MapContainer}>
+        <MediaCard className={classes.colorcard} />
+        <Map google={this.props.google}
+          style={{ width: '100%', height: '50%', position: 'relative' }}
+          className={'map'}
+          zoom={15}>
 
-      return (
+          <Marker
+            name={'Dolores park'}
+            position={{ lat: this.props.location.state.lat, lng: this.props.location.state.lng }} />
+          <Marker />
 
+          <Marker
+            name={'Dolores park'}
+            position={{ lat: 30, lng: 55 }} />
+          <Marker />
+        </Map>
 
-    <div className= {classes.MapContainer}>
-<MediaCard className={classes.colorcard}/>
-<Map google={this.props.google}
-    style={{width: '100%', height: '50%', position: 'relative'}}
-    className={'map'}
-    zoom={15}>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          onClick={this.toHome}
 
-  <Marker
-    name={'Dolores park'}
-    position={{lat: {lat}, lng: {lng}}} />
-  <Marker />
-
-  <Marker
-    name={'Dolores park'}
-    position={{lat: 37.778519, lng: -122.405640}} />
-  <Marker />
-</Map>
-
-<Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              onClick = {this.toHome}
-
-            >
-              Confirm
+        >
+          Confirm
             </Button>
 
-        </div>
-      );
-    }
+      </div>
+    );
   }
+}
 
-  export default compose (
-    withStyles (styles, {name:'MapContainer'}),
-    GoogleApiWrapper({
+export default compose(
+  withStyles(styles, { name: 'MapContainer' }),
+  GoogleApiWrapper({
     apiKey: ('AIzaSyA6d-b1oLwH9632Q91P_WNOUbHPXxGzBEk')
   }))(MapContainer)
-  

@@ -9,8 +9,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SwitchLabels from './toggles';
 import Button from '@material-ui/core/Button';
 
-
 import getBeacons from '../api/getBeacons';
+
+import { Link } from 'react-router-dom'
 
 const styles = theme => ({
   root: {
@@ -73,7 +74,6 @@ class ControlledExpansionPanels extends React.Component {
         console.log(err);
       })
   }
-  toComplete =() => this.props.history.push('./complete');
 
   render() {
     const { classes } = this.props;
@@ -95,13 +95,13 @@ class ControlledExpansionPanels extends React.Component {
               <ExpansionPanelDetails className={classes.detail}>
                 <Typography className={classes.detailText}>
                   {b.locdesc}
-              </Typography>
-              <Button 
-            onClick = {this.toComplete}
-            variant="outlined" className={classes.button}>
-        Accept
-      </Button>
-
+                </Typography>
+                <Link to={{ pathname: '/complete', state: { lat: b.lat, lon: b.lon } }}>
+                  <Button
+                    variant="outlined" className={classes.button}>
+                    Accept
+                  </Button>
+                </Link>
               </ExpansionPanelDetails>
             </ExpansionPanel>
 
