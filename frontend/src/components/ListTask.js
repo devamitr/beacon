@@ -7,6 +7,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SwitchLabels from './toggles';
+import Button from '@material-ui/core/Button';
+
 
 import getBeacons from '../api/getBeacons';
 
@@ -71,13 +73,11 @@ class ControlledExpansionPanels extends React.Component {
         console.log(err);
       })
   }
+  toComplete =() => this.props.history.push('./complete');
 
   render() {
     const { classes } = this.props;
     const { expanded } = this.state;
-    const taskDes = "Fell of the stairs";//gonna be changed through database
-    const Dist = "240m";//gonna be changed through database
-    //Typography gonna be changed through database
 
 
 
@@ -86,7 +86,7 @@ class ControlledExpansionPanels extends React.Component {
         <Typography className={classes.typography}>Current Beacons Near You</Typography>
         {
           this.state.beaconList.length !== 0 && this.state.beaconList.map(b => (
-            <ExpansionPanel key={b._id} className={classes.expansionPanel} expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
+            <ExpansionPanel key={b._id} className={classes.expansionPanel} expanded={expanded === b._id} onChange={this.handleChange(b._id)}>
               <ExpansionPanelSummary className={classes.expansionPanelSummary} expandIcon={<ExpandMoreIcon />}>
                 <Typography className={classes.heading}>{b.title}</Typography>
                 <Typography className={classes.secondaryHeading}>{b.desc}</Typography>
@@ -96,6 +96,12 @@ class ControlledExpansionPanels extends React.Component {
                 <Typography className={classes.detailText}>
                   {b.locdesc}
               </Typography>
+              <Button 
+            onClick = {this.toComplete}
+            variant="outlined" className={classes.button}>
+        Accept
+      </Button>
+
               </ExpansionPanelDetails>
             </ExpansionPanel>
 
